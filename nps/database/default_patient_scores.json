@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "patient_id": 1323,
+        "scores": {
+            "satisfaction": 9,
+            "pain": 2,
+            "fatigue": 2
+        },
+        "date": "2020-06-25"
+    },
+    {
+        "id": 2,
+        "patient_id": 9032,
+        "scores": {
+            "satisfaction": 2,
+            "pain": 7,
+            "fatigue": 5
+        },
+        "date": "2020-06-30"
+    },
+    {
+        "id": 3,
+        "patient_id": 2331,
+        "scores": {
+            "satisfaction": 7,
+            "pain": 1,
+            "fatigue": 1
+        },
+        "date": "2020-07-05"
+    },
+    {
+        "id": 4,
+        "patient_id": 2303,
+        "scores": {
+            "satisfaction": 8,
+            "pain": 9,
+            "fatigue": 0
+        },
+        "date": "2020-07-12"
+    },
+    {
+        "id": 5,
+        "patient_id": 1323,
+        "scores": {
+            "satisfaction": 10,
+            "pain": 0,
+            "fatigue": 0
+        },
+        "date": "2020-07-09"
+    },
+    {
+        "id": 6,
+        "patient_id": 2331,
+        "scores": {
+            "satisfaction": 8,
+            "pain": 9,
+            "fatigue": 5
+        },
+        "date": "2020-07-20"
+    }
+]
