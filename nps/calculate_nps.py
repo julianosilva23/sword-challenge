@@ -47,6 +47,8 @@ result_df = spark.sql("""
     ), count_classification AS (
         SELECT
             month_date,
+            date_format(month_date, 'y') as year,
+            date_format(month_date, 'MMMM') as month,
             COUNT(1) number_of_patients,
             COUNT(1) FILTER(WHERE satisfaction_label = 'promoter') number_of_promoters,
             COUNT(1) FILTER(WHERE satisfaction_label = 'detractor') number_of_detractors
