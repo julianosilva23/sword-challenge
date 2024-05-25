@@ -31,7 +31,7 @@ result_df = spark.sql("""
             date_trunc('MM', date) month_date,
             ROW_NUMBER() OVER(PARTITION BY patient_id, date_trunc('MM', date) ORDER BY date DESC) row_number
         FROM patient_scores
-    ), filter_most_recent_score_and_classificate AS (
+    ), filter_most_recent_score_and_classify AS (
         SELECT
             id,
             patient_id,
@@ -44,20 +44,23 @@ result_df = spark.sql("""
             month_date
         FROM most_recent_score_by_month
         WHERE row_number = 1
+    ), count_classification AS (
+        SELECT
+            month_date,
+            COUNT(1) number_of_patients,
+            COUNT(1) FILTER(WHERE satisfaction_label = 'promoter') number_of_promoters,
+            COUNT(1) FILTER(WHERE satisfaction_label = 'detractor') number_of_detractors
+        FROM filter_most_recent_score_and_classify
+        GROUP BY month_date
     )
     SELECT
-        month_date,
-        COUNT(1) number_of_patients,
-        COUNT(1) FILTER(WHERE satisfaction_label = 'promoter') number_of_promoters,
-        COUNT(1) FILTER(WHERE satisfaction_label = 'detractor') number_of_detractors,
+        *,
         ROUND(
             (
-                (COUNT(1) FILTER(WHERE satisfaction_label = 'promoter') - COUNT(1) FILTER(WHERE satisfaction_label = 'detractor')) / COUNT(1)
+                (number_of_promoters - number_of_detractors) / number_of_patients
             ) * 100
         , 0) nps
-    FROM filter_most_recent_score_and_classificate
-    GROUP BY month_date
-    
+    FROM count_classification
 """)
 
 
